@@ -24,6 +24,16 @@ function App() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      await api.post('/user/logout');
+      sessionStorage.removeItem('token');
+      setUser(null);
+    } catch (error) {
+      console.error('로그아웃 실패 : ', error);
+    }
+  };
+
   useEffect(() => {
     getUser();
   }, []);
@@ -34,7 +44,7 @@ function App() {
         path="/"
         element={
           <PrivateRoute user={user}>
-            <TodoPage />
+            <TodoPage user={user} onLogout={handleLogout} />
           </PrivateRoute>
         }
       />
