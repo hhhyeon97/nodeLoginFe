@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import TodoBoard from "../components/TodoBoard";
-import api from "../utils/api";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
+import React, { useEffect, useState } from 'react';
+import TodoBoard from '../components/TodoBoard';
+import api from '../utils/api';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 
 const TodoPage = () => {
   const [todoList, setTodoList] = useState([]);
-  const [todoValue, setTodoValue] = useState("");
+  const [todoValue, setTodoValue] = useState('');
 
   const getTasks = async () => {
-    const response = await api.get("/tasks");
+    const response = await api.get('/tasks');
+    console.log('taskList', response.data.data);
     setTodoList(response.data.data);
   };
   useEffect(() => {
@@ -18,16 +19,16 @@ const TodoPage = () => {
   }, []);
   const addTodo = async () => {
     try {
-      const response = await api.post("/tasks", {
+      const response = await api.post('/tasks', {
         task: todoValue,
         isComplete: false,
       });
       if (response.status === 200) {
         getTasks();
       }
-      setTodoValue("");
+      setTodoValue('');
     } catch (error) {
-      console.log("error:", error);
+      console.log('error:', error);
     }
   };
 
@@ -39,7 +40,7 @@ const TodoPage = () => {
         getTasks();
       }
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
     }
   };
 
@@ -53,7 +54,7 @@ const TodoPage = () => {
         getTasks();
       }
     } catch (error) {
-      console.log("error", error);
+      console.log('error', error);
     }
   };
   return (
